@@ -1,6 +1,10 @@
 package com.example.blogmultiplatform.pages
 
 import androidx.compose.runtime.Composable
+import com.example.blogmultiplatform.HeadlineTextStyle
+import com.example.blogmultiplatform.SubheadlineTextStyle
+import com.example.blogmultiplatform.components.layouts.PageLayout
+import com.example.blogmultiplatform.toSitePalette
 import com.varabyte.kobweb.compose.css.StyleVariable
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -29,10 +33,6 @@ import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
-import com.example.blogmultiplatform.HeadlineTextStyle
-import com.example.blogmultiplatform.SubheadlineTextStyle
-import com.example.blogmultiplatform.components.layouts.PageLayout
-import com.example.blogmultiplatform.toSitePalette
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
@@ -62,7 +62,7 @@ private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, he
         HomeGridCellStyle.toModifier()
             .setVariable(GridCellColorVar, color)
             .gridItem(row, column, width, height)
-            .toAttrs()
+            .toAttrs(),
     )
 }
 
@@ -77,19 +77,20 @@ fun HomePage() {
                 Column(Modifier.gap(2.cssRem)) {
                     Div(HeadlineTextStyle.toAttrs()) {
                         SpanText(
-                            "Use this template as your starting point for ", Modifier.color(
+                            "Use this template as your starting point for ",
+                            Modifier.color(
                                 when (ColorMode.current) {
                                     ColorMode.LIGHT -> Colors.Black
                                     ColorMode.DARK -> Colors.White
-                                }
-                            )
+                                },
+                            ),
                         )
                         SpanText(
                             "Kobweb",
                             Modifier
                                 .color(sitePalette.brand.accent)
                                 // Use a shadow so this light-colored word is more visible in light mode
-                                .textShadow(0.px, 0.px, blurRadius = 0.5.cssRem, color = Colors.Gray)
+                                .textShadow(0.px, 0.px, blurRadius = 0.5.cssRem, color = Colors.Gray),
                         )
                     }
 
@@ -111,14 +112,15 @@ fun HomePage() {
                 }
             }
 
-            Div(HomeGridStyle
-                .toModifier()
-                .displayIfAtLeast(Breakpoint.MD)
-                .grid {
-                    rows { repeat(3) { size(1.fr) } }
-                    columns { repeat(5) {size(1.fr) } }
-                }
-                .toAttrs()
+            Div(
+                HomeGridStyle
+                    .toModifier()
+                    .displayIfAtLeast(Breakpoint.MD)
+                    .grid {
+                        rows { repeat(3) { size(1.fr) } }
+                        columns { repeat(5) { size(1.fr) } }
+                    }
+                    .toAttrs(),
             ) {
                 val sitePalette = ColorMode.current.toSitePalette()
                 GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
