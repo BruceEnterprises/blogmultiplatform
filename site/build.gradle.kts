@@ -2,6 +2,7 @@ import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.seralization)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kobweb.application)
     alias(libs.plugins.kobwebx.markdown)
@@ -21,7 +22,7 @@ kobweb {
 kotlin {
     // This example is frontend only. However, for a fullstack app, you can uncomment the includeServer parameter
     // and the `jvmMain` source set below.
-    configAsKobwebApplication("blogmultiplatform" /*, includeServer = true*/)
+    configAsKobwebApplication("blogmultiplatform", includeServer = true)
 
     sourceSets {
         commonMain.dependencies {
@@ -36,6 +37,12 @@ kotlin {
             // Uncomment the following if you want access to a large set of font-awesome icons:
             // implementation(libs.silk.icons.fa)
             implementation(libs.kobwebx.markdown)
+        }
+
+        jvmMain.dependencies {
+            compileOnly(libs.kobweb.api)
+            implementation(libs.kmongo)
+            implementation(libs.kotlinx.seralization)
         }
 
         // Uncomment the following if you pass `includeServer = true` into the `configAsKobwebApplication` call.
