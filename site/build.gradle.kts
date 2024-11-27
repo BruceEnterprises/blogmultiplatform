@@ -40,8 +40,9 @@ kotlin {
         }
 
         jvmMain.dependencies {
-            compileOnly(libs.kobweb.api)
-            implementation(libs.kmongo)
+            implementation(libs.kobweb.api)
+            implementation(libs.mongodb.kotlin.driver)
+
             implementation(libs.kotlinx.seralization)
         }
 
